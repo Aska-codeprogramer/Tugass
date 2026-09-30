@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+
+/* Print Media Optimization */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1.2cm;
+  }
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .no-print, header, footer, #task-form, #filter-tabs, #input-search, .quick-actions-bar, .btn-action, #toast-container {
+    display: none !important;
+  }
+  main {
+    padding-top: 0 !important;
+  }
+  .print-only-header {
+    display: block !important;
+  }
+  .print-board-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  .print-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #d1d5db !important;
+    background: #ffffff !important;
+  }
+  .print-clean-bg {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"inverse-on-surface":"#eef0ff","outline":"#767586","tertiary-container":"#a36700","on-secondary-fixed":"#002113","primary-container":"#6063ee","on-surface":"#131b2e","on-secondary-container":"#00714d","surface-container-lowest":"#ffffff","secondary-container":"#6cf8bb","primary":"#4648d4","on-primary":"#ffffff","primary-fixed":"#e1e0ff","surface":"#faf8ff","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#005236","error-container":"#ffdad6","primary-fixed-dim":"#c0c1ff","surface-dim":"#d2d9f4","secondary-fixed":"#6ffbbe","on-tertiary-fixed":"#2a1700","secondary":"#006c49","outline-variant":"#c7c4d7","on-error":"#ffffff","inverse-primary":"#c0c1ff","secondary-fixed-dim":"#4edea3","tertiary":"#825100","surface-container-high":"#e2e7ff","surface-bright":"#faf8ff","on-primary-fixed":"#07006c","surface-container-low":"#f2f3ff","error":"#ba1a1a","surface-tint":"#494bd6","surface-container":"#eaedff","tertiary-fixed":"#ffddb8","on-secondary":"#ffffff","surface-container-highest":"#dae2fd","inverse-surface":"#283044","on-error-container":"#93000a","surface-variant":"#dae2fd","on-surface-variant":"#464554","background":"#faf8ff","on-primary-fixed-variant":"#2f2ebe","on-primary-container":"#fffbff","tertiary-fixed-dim":"#ffb95f","on-background":"#131b2e","on-tertiary-fixed-variant":"#653e00","on-tertiary-container":"#fffbff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter-mobile":"0.75rem","space-xs":"0.25rem","margin-mobile":"1rem","space-md":"1rem","gutter":"1.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xl":"2rem","margin":"2rem"},"fontFamily":{"body-md":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-md":["Inter"],"headline-xl":["Plus Jakarta Sans"],"mono-sm":["Inter"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Inter"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-sm":["Inter"],"body-sm":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"500"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"mono-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 w-full px-gutter-mobile md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><a class="flex items-center gap-space-sm" data-path="semua-tugas" href="#"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W4H8FwsaBqfaW5uUag6s9jaGmmibIr1x4fEjeCoeceDdLAHorDDFCra3Wmr1kmXk9dqP8R2Ve7Y3US2akWEEh2WB_g1Hj77M4l0ElPLUvm24xJiZDZY_mjXzS0OsLHligZTpHsa7ccZcaMnDgl4Nnibt2v9f1Ic5Sxq6ouJkOax0jIWLRlu5DjgwSqMVHd32RFf5GztdRDl8RjECDFo1tDxuOl-_iQElWxt945Bjyrg7jtgmxqSyHJ1dMs"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">TaskFlow</span></a><div class="hidden sm:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-secondary-container/20 text-on-secondary-fixed-variant font-label-sm text-label-sm border border-secondary/20"><span class="w-2 h-2 rounded-full bg-secondary shrink-0 animate-pulse"></span><span>Penyimpanan Lokal Aktif (Auto-saved)</span></div></div><div class="flex-1 max-w-md mx-space-sm hidden md:block"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline pointer-events-none select-none text-[20px]">search</span><input class="w-full h-10 pl-10 pr-space-md rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container-low transition-colors duration-150 border border-outline-variant/30" id="header-search-input" placeholder="Cari tugas, label, atau prioritas..." type="search"/></div></div><div class="flex items-center gap-space-md shrink-0"><nav class="hidden lg:flex items-center gap-space-xs p-1 rounded-lg bg-surface-container-low" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a aria-current="page" class="px-3 py-1.5 transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="semua-tugas" href="#">Semua Tugas</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-colors" data-path="kanban-board" href="#">Papan Kanban</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ringkasan-fokus" href="#">Fokus &amp; Statistik</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-colors" data-path="pengaturan" href="#">Pengaturan</a></nav><div class="flex items-center gap-space-sm pl-space-xs"><button aria-label="Status Sync" class="sm:hidden flex items-center justify-center w-9 h-9 rounded-lg text-secondary" title="Penyimpanan Lokal Aktif" type="button"><span class="w-2.5 h-2.5 rounded-full bg-secondary"></span></button><div class="relative flex items-center shrink-0"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-highest cursor-pointer hover:opacity-90 transition-opacity" src="https://lh3.googleusercontent.com/aida/AEtjO1XvKN6VYbRjTGIRvmaS459rhEeuS-isqRdqVEk6XQqiojEq3k6WhDCHoisxiUV543gJxC4vzfPMHAYfhqf5OLCqnGgL2Y63IIyBwmx0SW8cIB6AIdWYB3xb0G04yeB00Dm3_FfNK7h3nFXdcWIC0VddMFVt9H_2D_1g-w3MFccMn52evN1TvUDsweXts1QiYGTZLTu97yAggKLTn_b7gzCof0_lltc2xC3OYkjjo_c-tne61go7OyKkQ4Q"/></div></div></div></div></header><main class="w-full pt-16 bg-surface flex-1"><div class="flex flex-col w-full">
+<div class="w-full px-gutter-mobile md:px-margin py-space-lg flex flex-col gap-space-lg max-w-7xl mx-auto">
+<!-- Print-Only Header Banner -->
+<div class="hidden print-only-header border-b-2 border-primary pb-4 mb-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold font-headline-lg text-primary tracking-tight">TaskFlow</span>
+<span class="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700 border border-gray-300">Laporan Resmi Tugas Harian</span>
+</div>
+<div class="text-right text-xs text-gray-500" id="print-timestamp">
+      Dicetak pada: -
+    </div>
+</div>
+<p class="text-xs text-gray-600 mt-1">Dokumen rekapitulasi status seluruh tugas harian dari penyimpanan lokal TaskFlow.</p>
+</div>
+<!-- Top Sub-Bar & Page Info -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-outline-variant/20 print-clean-bg">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Pengelola Tugas Harian</h1>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-fixed-variant font-label-sm text-label-sm border border-secondary/20 no-print">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            Penyimpanan Lokal Aktif (Auto-saved)
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Kelola tugas dengan mudah. Data tersimpan otomatis di peramban Anda.</p>
+</div>
+<!-- Quick Actions -->
+<div class="quick-actions-bar flex items-center gap-space-sm flex-wrap shrink-0">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors shadow-sm" id="btn-export" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Ekspor JSON</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shadow-sm cursor-pointer" id="btn-export-pdf" title="Cetak atau simpan sebagai dokumen PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Ekspor PDF</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-error-container/40 hover:bg-error-container text-on-error-container font-label-md text-label-md transition-colors shadow-sm" id="btn-clear-done" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+<span>Hapus Semua Selesai</span>
+</button>
+</div>
+</div>
+<!-- Summary Stats Strip -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between border border-outline-variant/10 print-card">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Tugas</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold mt-0.5" id="stat-total">0</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary no-print">
+<span class="material-symbols-outlined text-[22px]">format_list_bulleted</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between border border-outline-variant/10 print-card">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Tugas Baru</span>
+<span class="font-headline-md text-headline-md text-primary font-bold mt-0.5" id="stat-todo">0</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary no-print">
+<span class="material-symbols-outlined text-[22px]">schedule</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between border border-outline-variant/10 print-card">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Sedang Dikerjakan</span>
+<span class="font-headline-md text-headline-md text-tertiary-container font-bold mt-0.5" id="stat-doing">0</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary no-print">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between border border-outline-variant/10 print-card">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Selesai</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold mt-0.5" id="stat-done">0</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary no-print">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Quick Add Input Container -->
+<div class="bg-surface-container-lowest p-space-md md:p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md border border-outline-variant/20 no-print">
+<form class="flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm" id="task-form">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline select-none text-[20px]">add_task</span>
+<input class="w-full h-11 pl-11 pr-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all border border-outline-variant/30" id="input-title" placeholder="Tulis tugas baru lalu tekan Enter atau klik Tambah..." required="" type="text"/>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<!-- Initial Status Selector -->
+<div class="relative min-w-[140px] flex-1 sm:flex-initial">
+<select class="w-full h-11 px-3 bg-surface-container-low text-on-surface font-label-md text-label-md rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 border border-outline-variant/30" id="select-status" title="Status Awal Tugas">
+<option selected="" value="todo">📋 Tugas Baru</option>
+<option value="doing">⚡ Sedang Dikerjakan</option>
+<option value="done">✅ Langsung Selesai</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">expand_more</span>
+</div>
+<div class="relative min-w-[130px] flex-1 sm:flex-initial">
+<select class="w-full h-11 px-3 bg-surface-container-low text-on-surface font-label-md text-label-md rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 border border-outline-variant/30" id="select-category">
+<option value="Pekerjaan">💼 Pekerjaan</option>
+<option value="Pribadi">🏠 Pribadi</option>
+<option value="Urgent">🔥 Mendesak</option>
+<option value="Belajar">📚 Belajar</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">expand_more</span>
+</div>
+<div class="relative min-w-[120px] flex-1 sm:flex-initial">
+<select class="w-full h-11 px-3 bg-surface-container-low text-on-surface font-label-md text-label-md rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 border border-outline-variant/30" id="select-priority">
+<option value="Biasa">Biasa</option>
+<option value="Penting">Penting</option>
+<option value="Mendesak">Mendesak</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">expand_more</span>
+</div>
+<button class="h-11 px-5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-95 shrink-0" type="submit">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Tambah Tugas</span>
+</button>
+</div>
+</form>
+<!-- Live Search & Filtering -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-2">
+<div class="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0" id="filter-tabs">
+<button class="filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md bg-primary-container text-on-primary-container font-semibold shadow-sm transition-colors" data-filter="all" type="button">Semua</button>
+<button class="filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors" data-filter="todo" type="button">Belum Mulai</button>
+<button class="filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors" data-filter="doing" type="button">Dikerjakan</button>
+<button class="filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors" data-filter="done" type="button">Selesai</button>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">filter_list</span>
+<input class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary/20 border border-outline-variant/30" id="input-search" placeholder="Cari dalam daftar..." type="search"/>
+</div>
+</div>
+</div>
+<!-- 3-Column Responsive Board -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg items-start print-board-grid">
+<!-- Column 1: Baru / Belum Dikerjakan -->
+<div class="flex flex-col gap-space-md bg-surface-container-low/60 p-space-md rounded-xl min-h-[480px] border border-outline-variant/15 print-clean-bg">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tugas Baru / Belum Dikerjakan</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold border border-outline-variant/20" id="badge-count-todo">0</span>
+</div>
+<div class="flex flex-col gap-space-sm flex-1" id="col-todo">
+<!-- Rendered via JS -->
+</div>
+</div>
+<!-- Column 2: Sedang Dikerjakan -->
+<div class="flex flex-col gap-space-md bg-surface-container-low/60 p-space-md rounded-xl min-h-[480px] border border-outline-variant/15 print-clean-bg">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container shrink-0"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Sedang Dikerjakan</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold border border-outline-variant/20" id="badge-count-doing">0</span>
+</div>
+<div class="flex flex-col gap-space-sm flex-1" id="col-doing">
+<!-- Rendered via JS -->
+</div>
+</div>
+<!-- Column 3: Tugas Selesai -->
+<div class="flex flex-col gap-space-md bg-surface-container-low/60 p-space-md rounded-xl min-h-[480px] border border-outline-variant/15 print-clean-bg">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary shrink-0"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tugas Selesai</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold border border-outline-variant/20" id="badge-count-done">0</span>
+</div>
+<div class="flex flex-col gap-space-sm flex-1" id="col-done">
+<!-- Rendered via JS -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
+<script>
+  (function() {
+    const STORAGE_KEY = 'taskflow_tasks';
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    const initialTasks = [
+      {
+        id: 't-1',
+        title: 'Tinjau kembali laporan alur kerja kuartal ini',
+        category: 'Pekerjaan',
+        priority: 'Penting',
+        status: 'todo',
+        createdAt: 'Hari ini, 09:15'
+      },
+      {
+        id: 't-2',
+        title: 'Mempersiapkan materi presentasi inovasi AI tim',
+        category: 'Pekerjaan',
+        priority: 'Mendesak',
+        status: 'doing',
+        createdAt: 'Hari ini, 08:30'
+      },
+      {
+        id: 't-3',
+        title: 'Membaca artikel mengenai metodologi Kanban',
+        category: 'Belajar',
+        priority: 'Biasa',
+        status: 'todo',
+        createdAt: 'Kemarin'
+      },
+      {
+        id: 't-4',
+        title: 'Singkronisasi backup file konfigurasi personal',
+        category: 'Pribadi',
+        priority: 'Biasa',
+        status: 'done',
+        createdAt: 'Kemarin'
+      }
+    ];
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      let icon = 'info';
+      let bgStyle = 'bg-surface-container-lowest text-on-surface border border-outline-variant/30';
+      if (type === 'success') {
+        icon = 'check_circle';
+        bgStyle = 'bg-surface-container-lowest text-secondary border border-secondary/30';
+      } else if (type === 'delete') {
+        icon = 'delete';
+        bgStyle = 'bg-surface-container-lowest text-error border border-error/30';
+      }
+
+      toast.className = `${bgStyle} px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 pointer-events-auto transform transition-all duration-300 translate-y-4 opacity-0 font-label-md text-label-md`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-[18px] shrink-0">${icon}</span>
+        <span class="text-on-surface font-medium">${escapeHtml(message)}</span>
+      `;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 2600);
+    }
+
+    function getTasks() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(initialTasks));
+          return [...initialTasks];
+        }
+        return JSON.parse(stored);
+      } catch (e) {
+        return [...initialTasks];
+      }
+    }
+
+    function saveTasks(tasks) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      } catch (e) {
+        console.error('Gagal menyimpan ke LocalStorage', e);
+      }
+    }
+
+    function getPriorityClass(p) {
+      if (p === 'Mendesak') return 'bg-error-container/40 text-on-error-container';
+      if (p === 'Penting') return 'bg-tertiary-fixed text-on-tertiary-fixed-variant';
+      return 'bg-surface-container text-on-surface-variant';
+    }
+
+    function getCategoryClass(c) {
+      if (c === 'Pekerjaan') return 'bg-primary-fixed text-on-primary-fixed-variant';
+      if (c === 'Urgent') return 'bg-error-container text-on-error-container';
+      if (c === 'Belajar') return 'bg-surface-container-highest text-on-surface';
+      return 'bg-secondary-fixed text-on-secondary-fixed-variant';
+    }
+
+    function render() {
+      const allTasks = getTasks();
+
+      // Update counters
+      const todoCount = allTasks.filter(t => t.status === 'todo').length;
+      const doingCount = allTasks.filter(t => t.status === 'doing').length;
+      const doneCount = allTasks.filter(t => t.status === 'done').length;
+
+      document.getElementById('stat-total').textContent = allTasks.length;
+      document.getElementById('stat-todo').textContent = todoCount;
+      document.getElementById('stat-doing').textContent = doingCount;
+      document.getElementById('stat-done').textContent = doneCount;
+
+      document.getElementById('badge-count-todo').textContent = todoCount;
+      document.getElementById('badge-count-doing').textContent = doingCount;
+      document.getElementById('badge-count-done').textContent = doneCount;
+
+      // Filter
+      let filtered = allTasks;
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(t => t.status === currentFilter);
+      }
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(t => 
+          t.title.toLowerCase().includes(q) || 
+          t.category.toLowerCase().includes(q) ||
+          t.priority.toLowerCase().includes(q)
+        );
+      }
+
+      const colTodo = document.getElementById('col-todo');
+      const colDoing = document.getElementById('col-doing');
+      const colDone = document.getElementById('col-done');
+
+      colTodo.innerHTML = '';
+      colDoing.innerHTML = '';
+      colDone.innerHTML = '';
+
+      const tasksTodo = filtered.filter(t => t.status === 'todo');
+      const tasksDoing = filtered.filter(t => t.status === 'doing');
+      const tasksDone = filtered.filter(t => t.status === 'done');
+
+      function emptyStateHTML(text) {
+        return `
+          <div class="flex flex-col items-center justify-center p-space-lg text-center bg-surface-container-lowest/50 rounded-xl flex-1 text-on-surface-variant/70 gap-2 min-h-[140px] border border-dashed border-outline-variant/30 print:border-gray-300">
+            <span class="material-symbols-outlined text-[28px] opacity-40">inventory_2</span>
+            <span class="font-body-sm text-body-sm">${text}</span>
+          </div>
+        `;
+      }
+
+      // Populate col 1
+      if (tasksTodo.length === 0) {
+        colTodo.innerHTML = emptyStateHTML('Tidak ada tugas baru');
+      } else {
+        tasksTodo.forEach(t => {
+          colTodo.appendChild(createTaskCard(t));
+        });
+      }
+
+      // Populate col 2
+      if (tasksDoing.length === 0) {
+        colDoing.innerHTML = emptyStateHTML('Tidak ada tugas berjalan');
+      } else {
+        tasksDoing.forEach(t => {
+          colDoing.appendChild(createTaskCard(t));
+        });
+      }
+
+      // Populate col 3
+      if (tasksDone.length === 0) {
+        colDone.innerHTML = emptyStateHTML('Belum ada tugas selesai');
+      } else {
+        tasksDone.forEach(t => {
+          colDone.appendChild(createTaskCard(t));
+        });
+      }
+    }
+
+    function createTaskCard(task) {
+      const card = document.createElement('div');
+      card.className = "p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow group border border-outline-variant/15 print-card";
+
+      let statusActions = '';
+      let titleClass = "font-body-md text-body-md text-on-surface font-medium";
+
+      if (task.status === 'todo') {
+        statusActions = `
+          <button data-id="${task.id}" data-action="doing" class="btn-action inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold transition-colors shadow-xs">
+            <span>Mulai Kerjakan</span>
+            <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+          </button>
+        `;
+      } else if (task.status === 'doing') {
+        statusActions = `
+          <div class="flex items-center gap-1.5">
+            <button data-id="${task.id}" data-action="todo" title="Kembalikan ke Belum Dikerjakan" class="btn-action p-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors flex items-center">
+              <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+            </button>
+            <button data-id="${task.id}" data-action="done" class="btn-action inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-secondary-fixed hover:bg-secondary-fixed-dim text-on-secondary-fixed font-label-sm text-label-sm font-semibold transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[15px]">check</span>
+              <span>Selesai</span>
+            </button>
+          </div>
+        `;
+      } else if (task.status === 'done') {
+        titleClass = "font-body-md text-body-md text-on-surface-variant line-through opacity-75";
+        statusActions = `
+          <div class="flex items-center gap-1.5">
+            <button data-id="${task.id}" data-action="doing" title="Pindah ke Sedang Dikerjakan" class="btn-action inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors">
+              <span class="material-symbols-outlined text-[14px]">undo</span>
+              <span>Buka Kembali</span>
+            </button>
+            <button data-id="${task.id}" data-action="todo" title="Kembalikan ke Tugas Baru" class="btn-action p-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors">
+              <span class="material-symbols-outlined text-[14px]">history</span>
+            </button>
+          </div>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-space-xs">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-medium ${getCategoryClass(task.category)}">${task.category}</span>
+            <span class="px-2 py-0.5 rounded font-label-sm text-label-sm ${getPriorityClass(task.priority)}">${task.priority}</span>
+          </div>
+          <button data-id="${task.id}" data-action="delete" title="Hapus tugas permanen" class="btn-action text-outline hover:text-error hover:bg-error-container/30 transition-colors p-1 rounded-md no-print">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </div>
+
+        <p class="${titleClass} leading-snug">${escapeHtml(task.title)}</p>
+
+        <div class="flex items-center justify-between pt-1 mt-auto gap-2">
+          <span class="font-body-sm text-body-sm text-outline flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">access_time</span>
+            ${task.createdAt}
+          </span>
+          <div class="no-print">${statusActions}</div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, function(m) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+      });
+    }
+
+    // Event Delegation for Card Actions
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.btn-action');
+      if (!btn) return;
+
+      const id = btn.getAttribute('data-id');
+      const action = btn.getAttribute('data-action');
+      if (!id || !action) return;
+
+      let tasks = getTasks();
+      const targetTask = tasks.find(t => t.id === id);
+
+      if (action === 'delete') {
+        tasks = tasks.filter(t => t.id !== id);
+        saveTasks(tasks);
+        render();
+        showToast('Tugas telah dihapus', 'delete');
+      } else {
+        tasks = tasks.map(t => {
+          if (t.id === id) {
+            return { ...t, status: action };
+          }
+          return t;
+        });
+        saveTasks(tasks);
+        render();
+
+        if (action === 'doing') {
+          showToast('Tugas dipindahkan ke "Sedang Dikerjakan"', 'info');
+        } else if (action === 'done') {
+          showToast('Selamat! Tugas berhasil diselesaikan 🎉', 'success');
+        } else if (action === 'todo') {
+          showToast('Tugas dikembalikan ke antrean baru', 'info');
+        }
+      }
+    });
+
+    // Form Submit (Quick Add)
+    const form = document.getElementById('task-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const titleInput = document.getElementById('input-title');
+      const catSelect = document.getElementById('select-category');
+      const prioSelect = document.getElementById('select-priority');
+      const statSelect = document.getElementById('select-status');
+
+      const title = titleInput.value.trim();
+      if (!title) return;
+
+      const now = new Date();
+      const timeStr = 'Hari ini, ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+      const initialStatus = statSelect ? statSelect.value : 'todo';
+
+      const newTask = {
+        id: 't-' + Date.now(),
+        title: title,
+        category: catSelect.value,
+        priority: prioSelect.value,
+        status: initialStatus,
+        createdAt: timeStr
+      };
+
+      const tasks = getTasks();
+      tasks.unshift(newTask);
+      saveTasks(tasks);
+      titleInput.value = '';
+      render();
+      showToast('Tugas baru berhasil ditambahkan!', 'success');
+    });
+
+    // Filter Buttons
+    const filterTabs = document.querySelectorAll('.filter-btn');
+    filterTabs.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterTabs.forEach(b => {
+          b.className = 'filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors';
+        });
+        this.className = 'filter-btn px-3 py-1.5 rounded-lg font-label-md text-label-md bg-primary-container text-on-primary-container font-semibold shadow-sm transition-colors';
+        currentFilter = this.getAttribute('data-filter');
+        render();
+      });
+    });
+
+    // Live Search
+    const searchInput = document.getElementById('input-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        searchQuery = e.target.value;
+        render();
+      });
+    }
+
+    const headerSearch = document.getElementById('header-search-input');
+    if (headerSearch) {
+      headerSearch.addEventListener('input', function(e) {
+        searchQuery = e.target.value;
+        if (searchInput) searchInput.value = searchQuery;
+        render();
+      });
+    }
+
+    // Clear Done Tasks
+    document.getElementById('btn-clear-done').addEventListener('click', function() {
+      let tasks = getTasks();
+      const doneCount = tasks.filter(t => t.status === 'done').length;
+      if (doneCount === 0) {
+        showToast('Tidak ada tugas selesai untuk dibersihkan', 'info');
+        return;
+      }
+      if (confirm('Hapus semua ' + doneCount + ' tugas yang sudah selesai?')) {
+        tasks = tasks.filter(t => t.status !== 'done');
+        saveTasks(tasks);
+        render();
+        showToast(doneCount + ' tugas selesai telah dibersihkan', 'delete');
+      }
+    });
+
+    // Export Data JSON
+    document.getElementById('btn-export').addEventListener('click', function() {
+      const tasks = getTasks();
+      const blob = new Blob([JSON.stringify(tasks, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'taskflow-tugas-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Data tugas berhasil diekspor ke JSON!', 'success');
+    });
+
+    // Export Data PDF / Print Action
+    document.getElementById('btn-export-pdf').addEventListener('click', function() {
+      const printTimeElem = document.getElementById('print-timestamp');
+      if (printTimeElem) {
+        const now = new Date();
+        const options = { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        };
+        printTimeElem.textContent = 'Dicetak: ' + now.toLocaleDateString('id-ID', options);
+      }
+
+      showToast('Membuka pratinjau cetak PDF...', 'info');
+
+      // Memberi sedikit jeda agar DOM ter-update lalu panggil window.print()
+      setTimeout(() => {
+        window.print();
+      }, 250);
+    });
+
+    // Initial render
+    render();
+  })();
+</script></main><footer class="w-full bg-surface-container-lowest shadow-[0_-1px_6px_rgba(0,0,0,0.02)] mt-auto"><div class="w-full px-gutter-mobile md:px-margin py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left"><div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="font-headline-sm text-headline-sm text-on-surface">TaskFlow</span><span>•</span><span>Penyimpanan Lokal Aktif Tanpa Database Eksternal</span></div><div class="flex items-center gap-space-md text-on-surface-variant font-label-sm text-label-sm"><span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span>100% Privat &amp; Aman</span><span>© 2025 TaskFlow Inc.</span></div></div></footer></body></html>
